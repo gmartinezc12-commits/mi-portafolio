@@ -277,7 +277,7 @@
 
     .proyectos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto bcrypt-fit, minmax(250px, 1fr));
       gap: 2rem;
       max-width: 1200px;
       margin: 2rem auto;
@@ -509,7 +509,7 @@
       <h2>Mis Proyectos</h2>
       <div class="proyectos-grid">
         <div class="proyecto">
-          <h3>Proyecto 1</h3>
+          <h3>Determinación de días</h3>
           <img src="https://via.placeholder.com/300x200" alt="Proyecto 1">
           <p class="file-info">Archivo: <span id="file-name-1">Ninguno</span></p>
           <p class="file-name" id="display-name-1"></p>
@@ -517,7 +517,7 @@
           <button class="view-code-btn" id="view-btn-1" onclick="openModal(1)">Ver código</button>
         </div>
         <div class="proyecto">
-          <h3>Proyecto 2</h3>
+          <h3>Números de 1 a 100</h3>
           <img src="https://via.placeholder.com/300x200" alt="Proyecto 2">
           <p class="file-info">Archivo: <span id="file-name-2">Ninguno</span></p>
           <p class="file-name" id="display-name-2"></p>
@@ -525,7 +525,7 @@
           <button class="view-code-btn" id="view-btn-2" onclick="openModal(2)">Ver código</button>
         </div>
         <div class="proyecto">
-          <h3>Proyecto 3</h3>
+          <h3>Anagrama</h3>
           <img src="https://via.placeholder.com/300x200" alt="Proyecto 3">
           <p class="file-info">Archivo: <span id="file-name-3">Ninguno</span></p>
           <p class="file-name" id="display-name-3"></p>
@@ -533,7 +533,7 @@
           <button class="view-code-btn" id="view-btn-3" onclick="openModal(3)">Ver código</button>
         </div>
         <div class="proyecto">
-          <h3>Proyecto 4</h3>
+          <h3>Transformación binaria</h3>
           <img src="https://via.placeholder.com/300x200" alt="Proyecto 4">
           <p class="file-info">Archivo: <span id="file-name-4">Ninguno</span></p>
           <p class="file-name" id="display-name-4"></p>
@@ -541,7 +541,7 @@
           <button class="view-code-btn" id="view-btn-4" onclick="openModal(4)">Ver código</button>
         </div>
         <div class="proyecto">
-          <h3>Proyecto 5</h3>
+          <h3>Palíndromos</h3>
           <img src="https://via.placeholder.com/300x200" alt="Proyecto 5">
           <p class="file-info">Archivo: <span id="file-name-5">Ninguno</span></p>
           <p class="file-name" id="display-name-5"></p>
@@ -549,7 +549,7 @@
           <button class="view-code-btn" id="view-btn-5" onclick="openModal(5)">Ver código</button>
         </div>
         <div class="proyecto">
-          <h3>Proyecto 6</h3>
+          <h3>MCD y MCM</h3>
           <img src="https://via.placeholder.com/300x200" alt="Proyecto 6">
           <p class="file-info">Archivo: <span id="file-name-6">Ninguno</span></p>
           <p class="file-name" id="display-name-6"></p>
@@ -594,11 +594,292 @@
   </footer>
 
   <script>
-    // Extensiones permitidas
-    const allowedExtensions = ['.cpp', '.h', '.c', '.py', '.js', '.java', '.html'];
+    // === Archivos predefinidos (se guardan automáticamente) ===
+    const predefinedFiles = [
+      null, // índice 0
+      {
+        name: "Determinacion de números y dias.cpp",
+        content: `#include <iostream>
+using namespace std;
 
-    // Cargar archivos guardados al iniciar
+int main() {
+    int totalDias;
+
+    cout << "Ingrese el numero de dias: ";
+    cin >> totalDias;
+
+    // Guardamos una copia para usar en ambos métodos
+    int diasOriginal = totalDias;
+
+    // ==================== USANDO WHILE ====================
+    cout << "\\n--- Resultado usando WHILE ---\\n";
+
+    int anosWhile = 0;
+    int diasTemp = totalDias;
+    while (diasTemp >= 365) {
+        anosWhile++;
+        diasTemp -= 365;
+    }
+
+    int mesesWhile = 0;
+    while (diasTemp >= 30) {
+        mesesWhile++;
+        diasTemp -= 30;
+    }
+
+    int semanasWhile = 0;
+    while (diasTemp >= 7) {
+        semanasWhile++;
+        diasTemp -= 7;
+    }
+
+    int diasWhile = diasTemp;
+
+    cout << "Anos: " << anosWhile << endl;
+    cout << "Meses: " << mesesWhile << endl;
+    cout << "Semanas: " << semanasWhile << endl;
+    cout << "Dias: " << diasWhile << endl;
+
+    // ==================== USANDO DO-WHILE ====================
+    cout << "\\n--- Resultado usando DO-WHILE ---\\n";
+
+    int anosDoWhile = 0;
+    diasTemp = totalDias;
+    do {
+        if (diasTemp < 365) break;
+        anosDoWhile++;
+        diasTemp -= 365;
+    } while (diasTemp >= 365);
+
+    int mesesDoWhile = 0;
+    do {
+        if (diasTemp < 30) break;
+        mesesDoWhile++;
+        diasTemp -= 30;
+    } while (diasTemp >= 30);
+
+    int semanasDoWhile = 0;
+    do {
+        if (diasTemp < 7) break;
+        semanasDoWhile++;
+        diasTemp -= 7;
+    } while (diasTemp >= 7);
+
+    int diasDoWhile = diasTemp;
+
+    cout << "Anos: " << anosDoWhile << endl;
+    cout << "Meses: " << mesesDoWhile << endl;
+    cout << "Semanas: " << semanasDoWhile << endl;
+    cout << "Dias: " << diasDoWhile << endl;
+
+    return 0;
+}`
+      },
+      {
+        name: "Números de 1 a 100.cpp",
+        content: `#include <iostream>
+using namespace std;
+
+int main() {
+    for (int i = 1; i <= 100; i++) {
+        if (i % 3 == 0 && i % 5 == 0) {
+            cout << "fizzbuzz" << endl;
+        }
+        else if (i % 3 == 0) {
+            cout << "fizz" << endl;
+        }
+        else if (i % 5 == 0) {
+            cout << "buzz" << endl;
+        }
+        else {
+            cout << i << endl;
+        }
+    }
+    return 0;
+}`
+      },
+      {
+        name: "Anagrama.cpp",
+        content: `#include <iostream>
+#include <algorithm> 
+#include <string>
+using namespace std;
+
+bool sonAnagramas(string palabra1, string palabra2) {
+    if (palabra1 == palabra2) {
+        return false;
+    }
+
+    sort(palabra1.begin(), palabra1.end());
+    sort(palabra2.begin(), palabra2.end());
+
+    return palabra1 == palabra2;
+}
+
+int main() {
+    string palabra1, palabra2;
+
+    cout << "Ingrese la primera palabra: ";
+    cin >> palabra1;
+    cout << "Ingrese la segunda palabra: ";
+    cin >> palabra2;
+
+    if (sonAnagramas(palabra1, palabra2))
+        cout << "Las palabras son anagramas." << endl;
+    else
+        cout << "Las palabras no son anagramas." << endl;
+
+    return 0;
+}`
+      },
+      {
+        name: "Transformación de numero.cpp",
+        content: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int numero;
+    cout << "Ingrese un numero decimal: ";
+    cin >> numero;
+
+    if (numero == 0) {
+        cout << "Binario: 0" << endl;
+        return 0;
+    }
+    
+    int n = numero < 0 ? -numero : numero;
+    bool esNegativo = (numero < 0);
+
+    vector<int> binario;
+
+    while (n > 0) {
+        binario.push_back(n % 2);  
+        n = n / 2;                 
+    }
+
+    if (esNegativo) {
+        cout << "Binario: -";
+    }
+    else {
+        cout << "Binario: ";
+    }
+
+    for (int i = binario.size() - 1; i >= 0; i--) {
+        cout << binario[i];
+    }
+    cout << endl;
+
+    return 0;
+}`
+      },
+      {
+        name: "Palíndromos.cpp",
+        content: `#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+char normalizarCaracter(char c) {
+    c = tolower(c);
+    if (c == 'á') return 'a';
+    if (c == 'é') return 'e';
+    if (c == 'í') return 'i';
+    if (c == 'ó') return 'o';
+    if (c == 'ú') return 'u';
+    return c;
+}
+
+bool esPalindromo(string texto) {
+    string limpio = "";
+    for (char c : texto) {
+        if (isalnum(c)) { 
+            limpio += normalizarCaracter(c);
+        }
+    }
+
+    int izquierda = 0;
+    int derecha = limpio.length() - 1;
+
+    while (izquierda < derecha) {
+        if (limpio[izquierda] != limpio[derecha]) {
+            return false;
+        }
+        izquierda++;
+        derecha--;
+    }
+    return true;
+}
+
+int main() {
+    string texto;
+
+    cout << "Ingrese un texto: ";
+    getline(cin, texto);
+
+    if (esPalindromo(texto)) {
+        cout << "\\"" << texto << "\\" es un palidromo." << endl;
+    }
+    else {
+        cout << "\\"" << texto << "\\" no es un palidromo." << endl;
+    }
+
+    return 0;
+}`
+      },
+      {
+        name: "MCD.cpp",
+        content: `#include <iostream>
+using namespace std;
+
+int calcularMCD(int a, int b) {
+    if (a < 0) a = -a;
+    if (b < 0) b = -b;
+
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    return a;
+}
+
+int calcularMCM(int a, int b) {
+    if (a == 0 || b == 0) return 0;
+
+    return (abs(a) / calcularMCD(a, b)) * abs(b);
+}
+
+int main() {
+    int num1, num2;
+
+    cout << "Ingrese el primer nuemro entero: ";
+    cin >> num1;
+    cout << "Ingrese el segundo numero entero: ";
+    cin >> num2;
+
+    int mcd = calcularMCD(num1, num2);
+    cout << "El Maximo Comun Divisor de " << num1 << " y " << num2 << " es: " << mcd << endl;
+
+    int mcm = calcularMCM(num1, num2);
+    cout << "El Minimo Comun Multiplo de " << num1 << " y " << num2 << " es: " << mcm << endl;
+
+    return 0;
+}`
+      }
+    ];
+
+    // === Guardar archivos al cargar la página ===
     window.addEventListener('load', () => {
+      predefinedFiles.forEach((file, index) => {
+        if (file && !localStorage.getItem(`project-${index}`)) {
+          localStorage.setItem(`project-${index}`, JSON.stringify(file));
+        }
+      });
+
+      // Aplicar UI a todos los proyectos
       for (let i = 1; i <= 6; i++) {
         const saved = localStorage.getItem(`project-${i}`);
         if (saved) {
@@ -606,6 +887,7 @@
           updateProjectUI(i, data.name);
         }
       }
+
       const container = document.querySelector('#inicio .content-container');
       if (container) {
         container.classList.add('section-transition');
@@ -616,15 +898,15 @@
       }
     });
 
-    // Actualizar UI del proyecto
+    // === Actualizar UI del proyecto ===
     function updateProjectUI(projectId, fileName) {
       const proyecto = document.querySelector(`#load-btn-${projectId}`).closest('.proyecto');
 
-      // Ocultar "Archivo: Ninguno" y botón de cargar
+      // Ocultar todo lo innecesario
       proyecto.querySelector('.file-info').style.display = 'none';
       proyecto.querySelector('.load-from-folder-btn').style.display = 'none';
 
-      // Mostrar solo el nombre del archivo
+      // Mostrar nombre del archivo
       const displayName = proyecto.querySelector(`#display-name-${projectId}`);
       displayName.textContent = fileName;
       displayName.style.display = 'block';
@@ -634,7 +916,7 @@
       viewBtn.classList.add('visible');
     }
 
-    // Cargar archivo desde carpeta
+    // === Cargar desde carpeta (opcional, sobrescribe) ===
     async function loadFromFolder(projectId) {
       if (!('showOpenFilePicker' in window)) {
         alert('Tu navegador no soporta esta función. Usa Chrome/Edge actualizado.');
@@ -645,22 +927,16 @@
         const [fileHandle] = await window.showOpenFilePicker({
           types: [{
             description: 'Archivos de código',
-            accept: { 'text/*': allowedExtensions }
+            accept: { 'text/*': ['.cpp', '.h', '.c', '.py', '.js', '.java', '.html'] }
           }],
           multiple: false
         });
 
         const file = await fileHandle.getFile();
-        const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-
-        if (allowedExtensions.includes(fileExtension)) {
-          const content = await file.text();
-          const data = { name: file.name, content: content };
-          localStorage.setItem(`project-${projectId}`, JSON.stringify(data));
-          updateProjectUI(projectId, file.name);
-        } else {
-          alert(`Por favor, selecciona un archivo con una de estas extensiones:\n${allowedExtensions.join(', ')}`);
-        }
+        const content = await file.text();
+        const data = { name: file.name, content: content };
+        localStorage.setItem(`project-${projectId}`, JSON.stringify(data));
+        updateProjectUI(projectId, file.name);
       } catch (err) {
         if (err.name !== 'AbortError') {
           console.error(err);
@@ -669,7 +945,7 @@
       }
     }
 
-    // Abrir modal
+    // === Modal ===
     function openModal(projectId) {
       const saved = localStorage.getItem(`project-${projectId}`);
       if (saved) {
@@ -678,23 +954,21 @@
         document.getElementById('modal-code-content').textContent = data.content;
       } else {
         document.getElementById('modal-title').textContent = `Proyecto ${projectId}`;
-        document.getElementById('modal-code-content').textContent = 'No hay código disponible para este proyecto.';
+        document.getElementById('modal-code-content').textContent = 'No hay código disponible.';
       }
       document.getElementById('code-modal').classList.add('active');
     }
 
-    // Cerrar modal
     function closeModal() {
       document.getElementById('code-modal').classList.remove('active');
     }
 
-    // Cerrar modal al hacer clic fuera
     window.addEventListener('click', (e) => {
       const modal = document.getElementById('code-modal');
       if (e.target === modal) closeModal();
     });
 
-    // Animaciones y navegación
+    // === Navegación (sin cambios) ===
     const sections = document.querySelectorAll('.content-container, .proyecto, .regresar-card, .volver-inicio-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -800,7 +1074,6 @@
         inicioTitle.style.display = 'block';
         volverInicioCard.classList.remove('visible');
         regresarCard.classList.remove('visible');
-        // Restaurar estado inicial
         document.querySelectorAll('.proyecto .file-info').forEach(el => el.style.display = 'block');
         document.querySelectorAll('.proyecto .load-from-folder-btn').forEach(btn => btn.style.display = 'block');
         document.querySelectorAll('.proyecto .file-name').forEach(el => el.style.display = 'none');
