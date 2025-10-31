@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Portafolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Dancing Script', cursive, sans-serif;
+    }
+
+    body {
+      line-height: 1.6;
+      color: #fff;
+      background-image: url('https://www.idemia.com/wp-content/uploads/2024/11/esim-iot-sgp.3132-idemia.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      filter: opacity(0.6);
+      z-index: -1;
+    }
+
+    nav {
+      background: #2c3e50;
+      color: #fff;
+      padding: 1rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin: 0 1.5rem;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+      font-size: 1.2rem;
+    }
+
+    nav ul li a:hover {
+      color: #3498db;
+    }
+
+    section {
+      padding: 5rem 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: transparent;
+    }
+
+    section.hidden {
+      display: none;
+    }
+
+    section.section-appear {
+      display: flex;
+      animation: sectionAppear 0.8s ease-out forwards;
+    }
+
+    @keyframes sectionAppear {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-container {
+      padding: 2rem;
+      max-width: 80%;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      background: transparent;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .content-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .content-container.section-transition > *:not(.section-cards) {
+      opacity: 0;
+      transform: translateX(-50px) scale(0.95);
+      animation: elementSlideIn 0.6s ease-out forwards;
+    }
+
+    .content-container.section-transition > *:not(.section-cards):nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .content-container.section-transition > *:not(.section-cards):nth-child(2) {
+      animation-delay: 0.2s;
+      transform: translateX(50px) scale(0.95);
+    }
+
+    .content-container.section-transition > *:not(.section-cards):nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes elementSlideIn {
+      0% { opacity: 0; transform: translateX(-50px) scale(0.95); }
+      100% { opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    .content-container.section-transition .proyectos-grid .proyecto {
+      animation: projectSlideIn 0.6s ease-out forwards;
+    }
+
+    .content-container.section-transition .proyectos-grid .proyecto > * {
+      animation: projectSlideIn 0.6s ease-out forwards;
+    }
+
+    .content-container.section-transition .proyectos-grid .proyecto:nth-child(1) > * {
+      animation-delay: 0.6s;
+    }
+
+    .content-container.section-transition .proyectos-grid .proyecto:nth-child(2) > * {
+      animation-delay: 0.8s;
+      transform: translateX(50px) scale(0.95);
+    }
+
+    .content-container.section-transition .proyectos-grid .proyecto:nth-child(3) > * {
+      animation-delay: 1s;
+    }
+
+    .content-container.section-transition .proyectos-grid .proyecto:nth-child(4) > * {
+      animation-delay: 1.2s;
+    }
+
+    .content-container.section-transition .proyectos-grid .proyecto:nth-child(5) > * {
+      animation-delay: 1.4s;
+      transform: translateX(50px) scale(0.95);
+    }
+
+    .content-container.section-transition .proyectos-grid .proyecto:nth-child(6) > * {
+      animation-delay: 1.6s;
+    }
+
+    @keyframes projectSlideIn {
+      0% { opacity: 0; transform: translateX(-50px) scale(0.95); }
+      100% { opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    .inicio-card, .section-card, .regresar-card, .volver-inicio-card {
+      background: transparent;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 2px solid #000;
+      cursor: pointer;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-size: 1.5rem;
+      transition: transform 0.3s ease, background 0.3s ease;
+      margin: 1rem 0;
+    }
+
+    .inicio-card:hover, .section-card:hover, .regresar-card:hover, .volver-inicio-card:hover {
+      background: rgba(52, 152, 219, 0.2);
+      transform: scale(1.05);
+    }
+
+    .section-cards {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .section-cards.visible {
+      display: flex;
+      opacity: 0;
+      animation: sectionCardAppear 0.8s ease-out forwards;
+    }
+
+    .section-cards.visible .section-card {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: sectionCardAppear 0.6s ease-out forwards;
+    }
+
+    .section-cards.visible .section-card:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .section-cards.visible .section-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .section-cards.visible .section-card:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes sectionCardAppear {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .regresar-card, .volver-inicio-card {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      display: none;
+      z-index: 1000;
+    }
+
+    .volver-inicio-card {
+      left: auto;
+      right: 1rem;
+    }
+
+    .regresar-card.visible, .volver-inicio-card.visible {
+      display: block;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: sectionCardAppear 0.6s ease-out forwards;
+    }
+
+    #inicio, #sobre-mi, #proyectos, #contacto {
+      color: #fff;
+      background-color: transparent;
+    }
+
+    .content-container h1 {
+      font-size: 2.5rem;
+    }
+
+    .content-container h2 {
+      font-size: 2rem;
+    }
+
+    .content-container p {
+      font-size: 1.2rem;
+    }
+
+    .content-container a {
+      color: #fff;
+      text-decoration: underline;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      font-size: 1.2rem;
+    }
+
+    .content-container a:hover {
+      color: #3498db;
+    }
+
+    .proyectos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+
+    .proyecto {
+      background: transparent;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 2px solid #000;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .proyecto.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .proyecto h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .proyecto img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .proyecto .file-info {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      display: block;
+    }
+
+    .proyecto .file-name {
+      font-weight: bold;
+      color: #3498db;
+      margin: 0.5rem 0;
+      display: none;
+    }
+
+    .proyecto .load-from-folder-btn, .proyecto .view-code-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(52, 152, 219, 0.3);
+      border: 2px solid #000;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: none;
+      width: 100%;
+    }
+
+    .proyecto .load-from-folder-btn {
+      background: rgba(46, 204, 113, 0.3);
+      margin-top: 0.5rem;
+    }
+
+    .proyecto .load-from-folder-btn:hover {
+      background: rgba(46, 204, 113, 0.5);
+    }
+
+    .proyecto .view-code-btn.visible {
+      display: block;
+    }
+
+    .proyecto .view-code-btn:hover {
+      background: rgba(52, 152, 219, 0.5);
+      transform: scale(1.05);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #1a1a1a;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 2px solid #3498db;
+      max-width: 90%;
+      max-height: 90%;
+      overflow: auto;
+      position: relative;
+      animation: slideUp 0.4s ease-out;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #444;
+    }
+
+    .modal-header h3 {
+      font-size: 1.8rem;
+      color: #3498db;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .close-modal:hover {
+      color: #e74c3c;
+    }
+
+    .modal-code {
+      background: #000;
+      padding: 1rem;
+      border-radius: 8px;
+      max-height: 60vh;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #f0f0f0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      text-align: left;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    footer {
+      background: #2c3e50;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav ul li {
+        margin: 0.5rem 0;
+      }
+
+      .content-container {
+        max-width: 95%;
+        padding: 1.5rem;
+      }
+
+      .regresar-card, .volver-inicio-card {
+        position: static;
+        margin: 1rem auto;
+      }
+
+      .modal-content {
+        padding: 1.5rem;
+        max-width: 95%;
+      }
+
+      .modal-header h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+    </ul>
+  </nav>
+
+  <section id="inicio">
+    <div class="content-container">
+      <h1>¡Bienvenido a mi Portafolio!</h1>
+      <div class="inicio-card" onclick="showSectionCards()">Haz clic aquí</div>
+      <div class="section-cards">
+        <div class="section-card" onclick="showSection('sobre-mi')">Sobre Mí</div>
+        <div class="section-card" onclick="showSection('proyectos')">Proyectos</div>
+        <div class="section-card" onclick="showSection('contacto')">Contacto</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre-mi" class="hidden">
+    <div class="content-container">
+      <h2>Sobre Mí</h2>
+      <p>Hola, soy Gary. Soy un estudiante de Ingeniería en Sistemas de la Universidad Mariano Gálvez. Apasionado por el desarrollo web y la programación. Disfruto creando soluciones innovadoras y aprendiendo nuevas tecnologías.</p>
+    </div>
+  </section>
+
+  <section id="proyectos" class="hidden">
+    <div class="content-container">
+      <h2>Mis Proyectos</h2>
+      <div class="proyectos-grid">
+        <div class="proyecto">
+          <h3>Proyecto 1</h3>
+          <img src="https://via.placeholder.com/300x200" alt="Proyecto 1">
+          <p class="file-info">Archivo: <span id="file-name-1">Ninguno</span></p>
+          <p class="file-name" id="display-name-1"></p>
+          <button class="load-from-folder-btn" id="load-btn-1" onclick="loadFromFolder(1)">Cargar desde carpeta</button>
+          <button class="view-code-btn" id="view-btn-1" onclick="openModal(1)">Ver código</button>
+        </div>
+        <div class="proyecto">
+          <h3>Proyecto 2</h3>
+          <img src="https://via.placeholder.com/300x200" alt="Proyecto 2">
+          <p class="file-info">Archivo: <span id="file-name-2">Ninguno</span></p>
+          <p class="file-name" id="display-name-2"></p>
+          <button class="load-from-folder-btn" id="load-btn-2" onclick="loadFromFolder(2)">Cargar desde carpeta</button>
+          <button class="view-code-btn" id="view-btn-2" onclick="openModal(2)">Ver código</button>
+        </div>
+        <div class="proyecto">
+          <h3>Proyecto 3</h3>
+          <img src="https://via.placeholder.com/300x200" alt="Proyecto 3">
+          <p class="file-info">Archivo: <span id="file-name-3">Ninguno</span></p>
+          <p class="file-name" id="display-name-3"></p>
+          <button class="load-from-folder-btn" id="load-btn-3" onclick="loadFromFolder(3)">Cargar desde carpeta</button>
+          <button class="view-code-btn" id="view-btn-3" onclick="openModal(3)">Ver código</button>
+        </div>
+        <div class="proyecto">
+          <h3>Proyecto 4</h3>
+          <img src="https://via.placeholder.com/300x200" alt="Proyecto 4">
+          <p class="file-info">Archivo: <span id="file-name-4">Ninguno</span></p>
+          <p class="file-name" id="display-name-4"></p>
+          <button class="load-from-folder-btn" id="load-btn-4" onclick="loadFromFolder(4)">Cargar desde carpeta</button>
+          <button class="view-code-btn" id="view-btn-4" onclick="openModal(4)">Ver código</button>
+        </div>
+        <div class="proyecto">
+          <h3>Proyecto 5</h3>
+          <img src="https://via.placeholder.com/300x200" alt="Proyecto 5">
+          <p class="file-info">Archivo: <span id="file-name-5">Ninguno</span></p>
+          <p class="file-name" id="display-name-5"></p>
+          <button class="load-from-folder-btn" id="load-btn-5" onclick="loadFromFolder(5)">Cargar desde carpeta</button>
+          <button class="view-code-btn" id="view-btn-5" onclick="openModal(5)">Ver código</button>
+        </div>
+        <div class="proyecto">
+          <h3>Proyecto 6</h3>
+          <img src="https://via.placeholder.com/300x200" alt="Proyecto 6">
+          <p class="file-info">Archivo: <span id="file-name-6">Ninguno</span></p>
+          <p class="file-name" id="display-name-6"></p>
+          <button class="load-from-folder-btn" id="load-btn-6" onclick="loadFromFolder(6)">Cargar desde carpeta</button>
+          <button class="view-code-btn" id="view-btn-6" onclick="openModal(6)">Ver código</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="hidden">
+    <div class="content-container">
+      <h2>Contacto</h2>
+      <p>¿Quieres trabajar conmigo? Contáctame a través de:</p>
+      <div class="contacto-links">
+        <p><strong>Email:</strong> 
+          <a href="mailto:gary092006@gmail.com?subject=Hola%20Gary!" 
+             style="color: #3498db; font-weight: bold; text-decoration: underline;">
+            gary092006@gmail.com
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal" id="code-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Código del Proyecto</h3>
+        <button class="close-modal" onclick="closeModal()">X</button>
+      </div>
+      <pre class="modal-code" id="modal-code-content">Selecciona un archivo para ver su contenido.</pre>
+    </div>
+  </div>
+
+  <div class="regresar-card" onclick="returnToSectionCards()">Regresar</div>
+  <div class="volver-inicio-card" onclick="returnToInicio()">Volver a Inicio</div>
+
+  <footer>
+    <p>© 2025 Gary. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Extensiones permitidas
+    const allowedExtensions = ['.cpp', '.h', '.c', '.py', '.js', '.java', '.html'];
+
+    // Cargar archivos guardados al iniciar
+    window.addEventListener('load', () => {
+      for (let i = 1; i <= 6; i++) {
+        const saved = localStorage.getItem(`project-${i}`);
+        if (saved) {
+          const data = JSON.parse(saved);
+          updateProjectUI(i, data.name);
+        }
+      }
+      const container = document.querySelector('#inicio .content-container');
+      if (container) {
+        container.classList.add('section-transition');
+        setTimeout(() => {
+          container.classList.remove('section-transition');
+          container.classList.add('visible');
+        }, 1200);
+      }
+    });
+
+    // Actualizar UI del proyecto
+    function updateProjectUI(projectId, fileName) {
+      const proyecto = document.querySelector(`#load-btn-${projectId}`).closest('.proyecto');
+
+      // Ocultar "Archivo: Ninguno" y botón de cargar
+      proyecto.querySelector('.file-info').style.display = 'none';
+      proyecto.querySelector('.load-from-folder-btn').style.display = 'none';
+
+      // Mostrar solo el nombre del archivo
+      const displayName = proyecto.querySelector(`#display-name-${projectId}`);
+      displayName.textContent = fileName;
+      displayName.style.display = 'block';
+
+      // Mostrar botón "Ver código"
+      const viewBtn = proyecto.querySelector(`#view-btn-${projectId}`);
+      viewBtn.classList.add('visible');
+    }
+
+    // Cargar archivo desde carpeta
+    async function loadFromFolder(projectId) {
+      if (!('showOpenFilePicker' in window)) {
+        alert('Tu navegador no soporta esta función. Usa Chrome/Edge actualizado.');
+        return;
+      }
+
+      try {
+        const [fileHandle] = await window.showOpenFilePicker({
+          types: [{
+            description: 'Archivos de código',
+            accept: { 'text/*': allowedExtensions }
+          }],
+          multiple: false
+        });
+
+        const file = await fileHandle.getFile();
+        const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+
+        if (allowedExtensions.includes(fileExtension)) {
+          const content = await file.text();
+          const data = { name: file.name, content: content };
+          localStorage.setItem(`project-${projectId}`, JSON.stringify(data));
+          updateProjectUI(projectId, file.name);
+        } else {
+          alert(`Por favor, selecciona un archivo con una de estas extensiones:\n${allowedExtensions.join(', ')}`);
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.error(err);
+          alert('Error al cargar el archivo.');
+        }
+      }
+    }
+
+    // Abrir modal
+    function openModal(projectId) {
+      const saved = localStorage.getItem(`project-${projectId}`);
+      if (saved) {
+        const data = JSON.parse(saved);
+        document.getElementById('modal-title').textContent = `Proyecto ${projectId}: ${data.name}`;
+        document.getElementById('modal-code-content').textContent = data.content;
+      } else {
+        document.getElementById('modal-title').textContent = `Proyecto ${projectId}`;
+        document.getElementById('modal-code-content').textContent = 'No hay código disponible para este proyecto.';
+      }
+      document.getElementById('code-modal').classList.add('active');
+    }
+
+    // Cerrar modal
+    function closeModal() {
+      document.getElementById('code-modal').classList.remove('active');
+    }
+
+    // Cerrar modal al hacer clic fuera
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('code-modal');
+      if (e.target === modal) closeModal();
+    });
+
+    // Animaciones y navegación
+    const sections = document.querySelectorAll('.content-container, .proyecto, .regresar-card, .volver-inicio-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.classList.contains('section-transition')) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(section => observer.observe(section));
+
+    function showSectionCards() {
+      const sectionCards = document.querySelector('.section-cards');
+      const inicioCard = document.querySelector('.inicio-card');
+      const inicioTitle = document.querySelector('#inicio h1');
+      const regresarCard = document.querySelector('.regresar-card');
+      const volverInicioCard = document.querySelector('.volver-inicio-card');
+      if (regresarCard) regresarCard.classList.remove('visible');
+      if (sectionCards && inicioCard && inicioTitle && volverInicioCard) {
+        inicioCard.style.display = 'none';
+        inicioTitle.style.display = 'none';
+        sectionCards.classList.add('visible');
+        volverInicioCard.classList.add('visible');
+        document.querySelector('#inicio').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function showSection(sectionId) {
+      const sections = ['sobre-mi', 'proyectos', 'contacto'];
+      sections.forEach(id => {
+        const section = document.querySelector(`#${id}`);
+        if (section) {
+          section.classList.add('hidden');
+          section.classList.remove('section-appear');
+          const container = section.querySelector('.content-container');
+          if (container) container.classList.remove('visible', 'section-transition');
+        }
+      });
+      const sectionCards = document.querySelector('.section-cards');
+      const volverInicioCard = document.querySelector('.volver-inicio-card');
+      if (sectionCards && volverInicioCard) {
+        sectionCards.classList.remove('visible');
+        volverInicioCard.classList.remove('visible');
+      }
+      const regresarCard = document.querySelector('.regresar-card');
+      if (regresarCard) regresarCard.classList.add('visible');
+      const targetSection = document.querySelector(`#${sectionId}`);
+      if (targetSection) {
+        targetSection.classList.remove('hidden');
+        targetSection.classList.add('section-appear');
+        const container = targetSection.querySelector('.content-container');
+        if (container) {
+          container.classList.add('section-transition');
+          setTimeout(() => {
+            container.classList.remove('section-transition');
+            container.classList.add('visible');
+          }, 1200);
+        }
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function returnToSectionCards() {
+      const sections = ['sobre-mi', 'proyectos', 'contacto'];
+      sections.forEach(id => {
+        const section = document.querySelector(`#${id}`);
+        if (section) {
+          section.classList.add('hidden');
+          section.classList.remove('section-appear');
+          const container = section.querySelector('.content-container');
+          if (container) container.classList.remove('visible', 'section-transition');
+        }
+      });
+      const sectionCards = document.querySelector('.section-cards');
+      const regresarCard = document.querySelector('.regresar-card');
+      const volverInicioCard = document.querySelector('.volver-inicio-card');
+      if (sectionCards && regresarCard && volverInicioCard) {
+        sectionCards.classList.add('visible');
+        regresarCard.classList.remove('visible');
+        volverInicioCard.classList.add('visible');
+        document.querySelector('#inicio').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function returnToInicio() {
+      const sections = ['sobre-mi', 'proyectos', 'contacto'];
+      sections.forEach(id => {
+        const section = document.querySelector(`#${id}`);
+        if (section) {
+          section.classList.add('hidden');
+          section.classList.remove('section-appear');
+          const container = section.querySelector('.content-container');
+          if (container) container.classList.remove('visible', 'section-transition');
+        }
+      });
+      const sectionCards = document.querySelector('.section-cards');
+      const inicioCard = document.querySelector('.inicio-card');
+      const inicioTitle = document.querySelector('#inicio h1');
+      const volverInicioCard = document.querySelector('.volver-inicio-card');
+      const regresarCard = document.querySelector('.regresar-card');
+      if (sectionCards && inicioCard && inicioTitle && volverInicioCard && regresarCard) {
+        sectionCards.classList.remove('visible');
+        inicioCard.style.display = 'block';
+        inicioTitle.style.display = 'block';
+        volverInicioCard.classList.remove('visible');
+        regresarCard.classList.remove('visible');
+        // Restaurar estado inicial
+        document.querySelectorAll('.proyecto .file-info').forEach(el => el.style.display = 'block');
+        document.querySelectorAll('.proyecto .load-from-folder-btn').forEach(btn => btn.style.display = 'block');
+        document.querySelectorAll('.proyecto .file-name').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.view-code-btn').forEach(btn => btn.classList.remove('visible'));
+        const container = document.querySelector('#inicio .content-container');
+        if (container) {
+          container.classList.add('section-transition');
+          setTimeout(() => {
+            container.classList.remove('section-transition');
+            container.classList.add('visible');
+          }, 1200);
+        }
+        document.querySelector('#inicio').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>
